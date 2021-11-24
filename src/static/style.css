@@ -1,0 +1,130 @@
+body, html {
+    height: 100%;
+    background-color: #212121;
+    font-family: Helvetica;
+    color: #adadad;
+    font-size: 20px;
+}
+
+@media screen and (min-width: 800px) {
+    body, html {
+        font-size: 24px;
+    }
+}
+
+h1 {
+    margin-bottom: 10px;
+    font-family: Helvetica;
+    color: #adadad;
+}
+
+text {
+    fill: #adadad;
+    font-family: Helvetica;
+    font-size: 18px;
+}
+
+hr {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    border: 0;
+    border-top: 1px solid #adadad40;
+}
+
+.iconscroll:hover { opacity: 0.5; } 
+
+.content-div {
+    /* border: 5px solid blue; */
+    
+    text-align: center;
+    position: relative;
+}
+
+.inner-div {
+    /* border: 5px solid red; */
+    width: 100%;
+
+    text-align: justify;
+    position: relative;
+    display: inline-block;
+    padding: 15px;
+}
+
+@media screen and (min-width: 800px) {
+    .inner-div {
+        width: 70%;
+    }
+}
+
+.center-div {
+    text-align: center;
+}
+
+.spacing-div {
+    /* border: 5px solid yellow; */
+    min-height: 20%;
+    
+    text-align: center;
+    position: relative;
+}
+
+
+
+.head-div {
+    height: 80%;
+    background-color: black;
+}
+
+.head-img {
+    object-fit: cover;
+    height: 100%;
+    width: 100%;
+    opacity: 0.4;
+}
+
+.head-title {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate( -50%, -50% );
+    color: white;
+    font-size: 76px;
+}
+
+
+
+.navbar-brand {
+  transform: translateX(-50%);
+  left: 50%;
+  position: absolute;
+}
+
+.hidden {
+  display: none;
+}
+
+.toolTip {
+  font-family: Helvetica;
+  color: #adadad;
+  background-color: #212121;
+  padding: .5em;
+  opacity: 0.9;
+  position: absolute;
+}
+
+.toolTipName {
+  font-family: Helvetica;
+  color: #adadad;
+  font-size: 24px;
+}
+
+.toolTipData {
+  font-family: Helvetica;
+  color: #adadad;
+  font-size: 18px;
+}
+
+.legendQuant text.label {
+    fill: "#fff";
+}
+
