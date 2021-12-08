@@ -1,4 +1,4 @@
-# Interactive Data Visualization
+# Data Visualization
 
 
 ## Description
@@ -15,8 +15,6 @@
 
 ##  Contributors
 
-ASRI Mohamed Amin
-RUYTER Swann
+ASRI Mohamed Amin -
+RUYTER Swann -
 BOUBKER Ayoub
-
-Distributed under the MIT license. See ``LICENSE`` for more information.  
