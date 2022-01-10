@@ -1,36 +1,68 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>MEG </title>
+
+<head>
+    <title>MEG</title>
     <link rel="icon" href="" />
-  
-    <meta
-        charset="utf-8"
-        name="viewport"
-        content="width=device-width, initial-scale=1"
-    />
+
+    <meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1" />
     <script src="https://d3js.org/d3.v6.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-legend/2.13.0/d3-legend.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous">
-    </script>
-    
+        </script>
+
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
         integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
     <link rel="stylesheet" href="src/static/style.css" />
-  </head>
-  
-  
-  <body>
+    <style>
+        .bubbles {
+            stroke-width: 2px;
+            stroke: white;
+        }
+
+        .bubbles:hover {
+            stroke: black;
+        }
+
+        div.tooltip {
+            color: #222;
+            background-color: #fff;
+            padding: .5em;
+            text-shadow: #f5f5f5 0 1px 0;
+            border-radius: 2px;
+            opacity: 0.9;
+            position: absolute;
+        }
+
+        div.tooltip1 {
+            color: #222;
+            background-color: #fff;
+            padding: .5em;
+            text-shadow: #f5f5f5 0 1px 0;
+            border-radius: 2px;
+            opacity: 0.9;
+            position: absolute;
+        }
+
+        .xAxis line {
+            stroke: #B8B8B8;
+        }
+    </style>
+</head>
+
+
+<body>
     <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark" style="transition: top 0.3s;" id="navbar">
         <a class="navbar-brand" href="#">DataViz</a>
 
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-        
+
         <div class="navbar-collapse collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
@@ -47,94 +79,115 @@
             </ul>
         </div>
     </nav>
-    
+
     <script>
         /* When the user scrolls down, hide the navbar. When the user scrolls up, show the navbar */
         var prevScrollpos = window.pageYOffset;
-        window.onscroll = function() {
-          var currentScrollPos = window.pageYOffset;
-          if (prevScrollpos - currentScrollPos < -50) {
-            document.getElementById("navbar").style.top = "-84px";
-            prevScrollpos = currentScrollPos;
-          } else if (prevScrollpos - currentScrollPos > 50) {
-            document.getElementById("navbar").style.top = "0";
-            prevScrollpos = currentScrollPos;
-          }
-          
+        window.onscroll = function () {
+            var currentScrollPos = window.pageYOffset;
+            if (prevScrollpos - currentScrollPos < -50) {
+                document.getElementById("navbar").style.top = "-84px";
+                prevScrollpos = currentScrollPos;
+            } else if (prevScrollpos - currentScrollPos > 50) {
+                document.getElementById("navbar").style.top = "0";
+                prevScrollpos = currentScrollPos;
+            }
+
         }
     </script>
-    
+
     <div class="content-div head-div">
         <img src="images/cerveau-organe.jpg" alt="Forge image" class="head-img">
         <h1 class="head-title">Titre</h1>
     </div>
-    
+
     <div class="spacing-div">
         <div class="inner-div center-div">
             <i style="cursor: pointer;" class="fas fa-arrow-circle-down fa-5x iconscroll" onclick='var element = document.getElementById("box");
             element.scrollIntoView({behavior: "smooth", block: "start", inline: "start"});'></i>
         </div>
     </div>
-    
+
     <hr id="box" style="margin-top: 0; width: 70%;">
     <div class="content-div">
         <div class="inner-div center-div">
             <h1 style="font-size: 2.4rem;">Titre</h1>
             <span style="font-size: 18px; opacity: 0.5;">Par ASRI Mohamed Amin & RUYTER Swann & BOUBKER Ayoub</span>
         </div>
-        
+
         <div class="inner-div" style="width: 60%;">
             <i style="font-size: 20px; opacity: 0.75;">
                 &nbsp;&nbsp;&nbsp;&nbsp;
-                Gummi bears bear claw gingerbread jelly beans topping fruitcake. Chupa chups marzipan cookie marzipan sesame snaps 
-                sweet roll halvah. Cupcake dessert chocolate bar cheesecake ice cream icing brownie chocolate cake. Topping caramels
-                cookie sugar plum oat cake cupcake. Cookie soufflé cotton candy pie tart shortbread wafer. Dessert cake cake muffin 
+                Gummi bears bear claw gingerbread jelly beans topping fruitcake. Chupa chups marzipan cookie marzipan
+                sesame snaps
+                sweet roll halvah. Cupcake dessert chocolate bar cheesecake ice cream icing brownie chocolate cake.
+                Topping caramels
+                cookie sugar plum oat cake cupcake. Cookie soufflé cotton candy pie tart shortbread wafer. Dessert cake
+                cake muffin
                 chocolate cake. Macaroon marshmallow caramels dessert cheesecake topping muffin danish cupcake.
 
             </i>
         </div>
-        
+
         <div class="inner-div">
-            Cupcake sugar plum croissant jujubes toffee chocolate marzipan pastry wafer. Carrot cake lemon drops cotton candy 
-            fruitcake cupcake. Cotton candy chocolate bar shortbread sweet tootsie roll sweet icing. Toffee danish tart brownie 
-            pastry. Croissant cheesecake candy canes gingerbread gingerbread soufflé candy canes. Candy cookie jelly beans tart 
+            Cupcake sugar plum croissant jujubes toffee chocolate marzipan pastry wafer. Carrot cake lemon drops cotton
+            candy
+            fruitcake cupcake. Cotton candy chocolate bar shortbread sweet tootsie roll sweet icing. Toffee danish tart
+            brownie
+            pastry. Croissant cheesecake candy canes gingerbread gingerbread soufflé candy canes. Candy cookie jelly
+            beans tart
             sweet roll jujubes.
         </div>
-        
+
         <div id="visuSmartphone" class="inner-div center-div">
             <h2>Partie 1</h2>
             <div id="legendPhoneOver" style="display: inline-block"></div>
             <div id="chartPhoneOver" style="display: inline-block"></div>
+            <div id="my_dataviz_1"></div>
             <hr style="width: 70%;">
-            <h5>Partie 2 (<1%)</h5>
+            <h5>Partie 2 </h5>
             <div id="legendPhoneSub" style="display: inline-block"></div>
             <div id="chartPhoneSub" style="display: inline-block"></div>
+
+            <div id="my_dataviz_2"></div>
+
+            <div id="divSlider">
+                <input id="slider" type="range" value="0" min="0" max="100" step="1" /><br />
+                <span id="frequence">fréquence</span>
+            </div>
         </div>
-        
+
         <div class="inner-div">
-            Danish candy canes cake shortbread jelly beans jelly-o croissant tart carrot cake. Jujubes bonbon pastry cookie sesame 
-            snaps. Tart brownie pudding candy lemon drops. Candy sweet roll wafer bonbon toffee. Tart muffin brownie pastry biscuit 
-            carrot cake lollipop jelly-o. Lemon drops jelly-o chocolate cake biscuit sugar plum tart tiramisu halvah jelly-o. Sesame 
+            Danish candy canes cake shortbread jelly beans jelly-o croissant tart carrot cake. Jujubes bonbon pastry
+            cookie sesame
+            snaps. Tart brownie pudding candy lemon drops. Candy sweet roll wafer bonbon toffee. Tart muffin brownie
+            pastry biscuit
+            carrot cake lollipop jelly-o. Lemon drops jelly-o chocolate cake biscuit sugar plum tart tiramisu halvah
+            jelly-o. Sesame
             snaps gummi bears powder cheesecake powder cotton candy biscuit.
         </div>
-        
+
         <div id="visuOrdinateur" class="inner-div center-div">
             <h2>Partie 3</h2>
             <div id="legendPcOver" style="display: inline-block"></div>
             <div id="chartPcOver" style="display: inline-block"></div>
             <hr style="width: 70%;">
-            <h5>Partie 4(<1%)</h5>
+            <h5>Partie 4</h5>
             <div id="legendPcSub" style="display: inline-block"></div>
             <div id="chartPcSub" style="display: inline-block"></div>
+            <div id="my_dataviz_3"></div>
         </div>
-        
+
         <div class="inner-div">
-            Danish candy canes cake shortbread jelly beans jelly-o croissant tart carrot cake. Jujubes bonbon pastry cookie sesame 
-            snaps. Tart brownie pudding candy lemon drops. Candy sweet roll wafer bonbon toffee. Tart muffin brownie pastry biscuit 
-            carrot cake lollipop jelly-o. Lemon drops jelly-o chocolate cake biscuit sugar plum tart tiramisu halvah jelly-o. Sesame 
+            Danish candy canes cake shortbread jelly beans jelly-o croissant tart carrot cake. Jujubes bonbon pastry
+            cookie sesame
+            snaps. Tart brownie pudding candy lemon drops. Candy sweet roll wafer bonbon toffee. Tart muffin brownie
+            pastry biscuit
+            carrot cake lollipop jelly-o. Lemon drops jelly-o chocolate cake biscuit sugar plum tart tiramisu halvah
+            jelly-o. Sesame
             snaps gummi bears powder cheesecake powder cotton candy biscuit.
         </div>
-        
+
         <!-- <div id="visuProd" class="inner-div center-div">
             <h2>Partie 5</h2>
             <div style="padding-top: 5px; width: 50%; display: inline-block;">
@@ -191,63 +244,79 @@
             <h5 id="titrePlot"> Danish candy canes cake shortbread</h5>
             <div id="leg" style="display: inline-block"></div>
         </div> -->
-        
+
         <div class="inner-div">
-            Danish candy canes cake shortbread jelly beans jelly-o croissant tart carrot cake. Jujubes bonbon pastry cookie sesame 
-            snaps. Tart brownie pudding candy lemon drops. Candy sweet roll wafer bonbon toffee. Tart muffin brownie pastry biscuit 
-            carrot cake lollipop jelly-o. Lemon drops jelly-o chocolate cake biscuit sugar plum tart tiramisu halvah jelly-o. Sesame 
+            Danish candy canes cake shortbread jelly beans jelly-o croissant tart carrot cake. Jujubes bonbon pastry
+            cookie sesame
+            snaps. Tart brownie pudding candy lemon drops. Candy sweet roll wafer bonbon toffee. Tart muffin brownie
+            pastry biscuit
+            carrot cake lollipop jelly-o. Lemon drops jelly-o chocolate cake biscuit sugar plum tart tiramisu halvah
+            jelly-o. Sesame
             snaps gummi bears powder cheesecake powder cotton candy biscuit.
         </div>
-        
+
         <div id="visuElement" class="inner-div center-div">
             <h2>Partie 6</h2>
             <div id="chartElem" style="display: inline-block"></div><br>
             <i style="font-size: 20px; opacity: 0.75;">
-                * Danish candy canes cake shortbread jelly beans jelly-o croissant tart carrot cake. Jujubes bonbon pastry cookie sesame
+                * Danish candy canes cake shortbread jelly beans jelly-o croissant tart carrot cake. Jujubes bonbon
+                pastry cookie sesame
             </i>
         </div>
-        
+
         <div class="inner-div">
-            Danish candy canes cake shortbread jelly beans jelly-o croissant tart carrot cake. Jujubes bonbon pastry cookie sesame 
-            snaps. Tart brownie pudding candy lemon drops. Candy sweet roll wafer bonbon toffee. Tart muffin brownie pastry biscuit 
-            carrot cake lollipop jelly-o. Lemon drops jelly-o chocolate cake biscuit sugar plum tart tiramisu halvah jelly-o. Sesame 
+            Danish candy canes cake shortbread jelly beans jelly-o croissant tart carrot cake. Jujubes bonbon pastry
+            cookie sesame
+            snaps. Tart brownie pudding candy lemon drops. Candy sweet roll wafer bonbon toffee. Tart muffin brownie
+            pastry biscuit
+            carrot cake lollipop jelly-o. Lemon drops jelly-o chocolate cake biscuit sugar plum tart tiramisu halvah
+            jelly-o. Sesame
             snaps gummi bears powder cheesecake powder cotton candy biscuit.
         </div>
-        
+
         <div class="inner-div">
-            Danish candy canes cake shortbread jelly beans jelly-o croissant tart carrot cake. Jujubes bonbon pastry cookie sesame 
-            snaps. Tart brownie pudding candy lemon drops. Candy sweet roll wafer bonbon toffee. Tart muffin brownie pastry biscuit 
-            carrot cake lollipop jelly-o. Lemon drops jelly-o chocolate cake biscuit sugar plum tart tiramisu halvah jelly-o. Sesame 
+            Danish candy canes cake shortbread jelly beans jelly-o croissant tart carrot cake. Jujubes bonbon pastry
+            cookie sesame
+            snaps. Tart brownie pudding candy lemon drops. Candy sweet roll wafer bonbon toffee. Tart muffin brownie
+            pastry biscuit
+            carrot cake lollipop jelly-o. Lemon drops jelly-o chocolate cake biscuit sugar plum tart tiramisu halvah
+            jelly-o. Sesame
             snaps gummi bears powder cheesecake powder cotton candy biscuit.
         </div>
     </div>
-    
+
     <div class="spacing-div">
     </div>
-    
+
     <div class="content-div">
         <div class="inner-div">
             <span style="font-size: 18px; opacity: 0.5;">
-                Ce site et ces visualisations ont été réalisées par 
-                <a target="_blank" rel="noopener noreferrer" href="#">Mohamed Amin ASRI</a>, 
-                <a target="_blank" rel="noopener noreferrer" href="#">Swann Ruyter</a>, 
-                <a target="_blank" rel="noopener noreferrer" href="#">Ayoub BOUBKER</a>, 
-                dans le cadre de l'UE 
-                <a target="_blank" rel="noopener noreferrer" href="https://lyondataviz.github.io/teaching/lyon1-m2/2021/">Data Visualization</a>
-                dispensée en 
+                Ce site et ces visualisations ont été réalisées par
+                <a target="_blank" rel="noopener noreferrer" href="#">Mohamed Amin ASRI</a>,
+                <a target="_blank" rel="noopener noreferrer" href="#">Swann Ruyter</a>,
+                <a target="_blank" rel="noopener noreferrer" href="#">Ayoub BOUBKER</a>,
+                dans le cadre de l'UE
+                <a target="_blank" rel="noopener noreferrer"
+                    href="https://lyondataviz.github.io/teaching/lyon1-m2/2021/">Data Visualization</a>
+                dispensée en
                 <a target="_blank" rel="noopener noreferrer" href="http://master-info.univ-lyon1.fr/IA/">Master 2 IA</a>
                 à l'
-                <a target="_blank" rel="noopener noreferrer" href="https://www.univ-lyon1.fr/">Université Claude Bernard Lyon 1</a>.
+                <a target="_blank" rel="noopener noreferrer" href="https://www.univ-lyon1.fr/">Université Claude Bernard
+                    Lyon 1</a>.
                 <hr>
             </span>
         </div>
     </div>
 
     <div class="hidden toolTip" style="border: 1px solid #adadad40;">
-      <span class="toolTipName"></span>
-      <br>
-      <span class="toolTipData"></span>
+        <span class="toolTipName"></span>
+        <br>
+        <span class="toolTipData"></span>
     </div>
-  </body>
-  
+</body>
+
+<script src="./js/bubble_scatter.js"></script>
+<script src="./js/scatter_frequence.js"></script>
+<script src="./js/ridgeline.js"></script>
+
 </html>
