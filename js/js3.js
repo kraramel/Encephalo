@@ -81,9 +81,9 @@
   var chart = RadarChart.chart();
   var cfg = chart.config(); // retrieve default config
   var svg6 = d3.select('#my_dataviz_4').append('svg')
-  .attr('width', cfg.w + cfg.w + 50)
+  .attr('width', cfg.w + cfg.w + 200)
   .attr('height', cfg.h + cfg.h / 4)
-  .style("margin-left", 500+"px")
+  .style("margin-left", 300+"px")
   var one = undefined;
   var fi = "f0";
   var es = undefined;
@@ -171,4 +171,17 @@ d3.select("#sliderF").on("input", function () {
 
 
     });
+    var keys = ["- LC : Center Left", "- LP : Posterior Left", "- LT : Temporal Left", "- RT : Temporal Right "
+  ,"- RP : Posterior Right", "- RF : Frontal Right", "- FF : Frontal Left", "- RC : Center Right"]
+
+     // Add one dot in the legend for each name.
+     svg6.selectAll("mylabels")
+     .data(keys)
+     .enter()
+     .append("text")
+     .attr("x", 450)
+     .attr("y", function (d, i) { return 55.5 + i * 25 }) // 100 is where the first dot appears. 25 is the distance between dots
+     .text(function (d) { return d })
+     .attr("text-anchor", "right")
+     .style("alignment-baseline", "middle")
 }

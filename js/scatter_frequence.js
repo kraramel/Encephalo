@@ -188,6 +188,18 @@ function updatePersonne(selectedEssais) {
             svg_2.append("g")
                 .call(d3v6.axisLeft(y2));
 
+            svg_2.append('text')
+                .attr('x', 10)
+                .attr('y', 10)
+                .attr('class', 'label')
+                .text('Y');
+
+            svg_2.append('text')
+                .attr('x', width_2)
+                .attr('y', height_2 - 10)
+                .attr('text-anchor', 'end')
+                .attr('class', 'label')
+                .text('X');
             // Add a scale for bubble size
             const z = d3v6.scaleLinear()
                 .domain([200000, 1310000000])

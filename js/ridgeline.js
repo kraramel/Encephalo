@@ -57,7 +57,7 @@ d3v6.csv("./new_data_test_scatter.csv").then(function (data) {
         .attr("text-anchor", "end")
         .attr("x", width)
         .attr("y", height + 40)
-        .text("Densité des fréquences");
+        // .text("Densité des fréquences");
 
     // Create a Y scale for densities
     const y = d3v6.scaleLinear()
