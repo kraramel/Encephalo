@@ -128,3 +128,7 @@ hr {
     fill: "#fff";
 }
 
+ul,li {
+    position : center;
+} 
+
