@@ -1,6 +1,6 @@
 // set the dimensions and margins of the graph
 const margin1 = { top: 10, right: 30, bottom: 30, left: 60 },
-    width1 = 800 - margin1.left - margin1.right,
+    width1 = 960 - margin1.left - margin1.right,
     height1 = 620 - margin1.top - margin1.bottom;
 
 // append the svg object to the body of the page
@@ -150,7 +150,8 @@ d3.csv("./new_data_test_scatter.csv").then(function (data) {
     // .on("mouseleave", hideTooltip)
 
     // create a list of keys
-    var keys = ["C", "F", "P", "T"]
+    var keys = ["Pariétal (Center)", "Frontal (Anterior) ", "Occipital (Posterior)", "Temporal"]
+
     svg.selectAll("mydots")
         .data(keys)
         .enter()

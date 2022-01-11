@@ -11,7 +11,7 @@ const svg_2 = d3.select("#my_dataviz_2")
     .append("g")
     .attr("transform", `translate(${margin_2.left},${margin_2.top})`);
 
-const essais = [
+const essais1 = [
     {
         essai: "Essai 1",
         link: "./data_modified/P0E0_modified.csv"
@@ -73,7 +73,78 @@ const essais = [
         link: "./data_modified/P0E14_modified.csv"
     }
 ]
-
+const essais2 = [
+    {
+        essai: "Essai 1",
+        link: "./data_modified/P1E0_modified.csv"
+    },
+    {
+        essai: "Essai 2",
+        link: "./data_modified/P1E1_modified.csv"
+    },
+    {
+        essai: "Essai 3",
+        link: "./data_modified/P1E2_modified.csv"
+    },
+    {
+        essai: "Essai 4",
+        link: "./data_modified/P1E3_modified.csv"
+    },
+    {
+        essai: "Essai 5",
+        link: "./data_modified/P1E4_modified.csv"
+    },
+    {
+        essai: "Essai 6",
+        link: "./data_modified/P1E5_modified.csv"
+    },
+    {
+        essai: "Essai 7",
+        link: "./data_modified/P1E6_modified.csv"
+    },
+    {
+        essai: "Essai 8",
+        link: "./data_modified/P1E7_modified.csv"
+    },
+    {
+        essai: "Essai 9",
+        link: "./data_modified/P1E8_modified.csv"
+    },
+    {
+        essai: "Essai 10",
+        link: "./data_modified/P1E9_modified.csv"
+    },
+    {
+        essai: "Essai 11",
+        link: "./data_modified/P1E10_modified.csv"
+    },
+    {
+        essai: "Essai 12",
+        link: "./data_modified/P1E11_modified.csv"
+    },
+    {
+        essai: "Essai 13",
+        link: "./data_modified/P1E12_modified.csv"
+    },
+    {
+        essai: "Essai 14",
+        link: "./data_modified/P1E13_modified.csv"
+    },
+    {
+        essai: "Essai 15",
+        link: "./data_modified/P1E14_modified.csv"
+    }
+]
+const personnes = [
+    {
+        personne: "Personne 1",
+        essais: essais1
+    },
+    {
+        personne: "Personne 2",
+        essais: essais2
+    }
+]
 
 d3.select("#selectButton")
     .selectAll('myOptions')
@@ -82,7 +153,21 @@ d3.select("#selectButton")
     .append('option')
     .text(function (d) { return d; }) // text showed in the menu
     .attr("value", function (d) { return d; }) // corresponding value returned by the button
-function updateChart(selectedLink) {
+
+d3.select("#selectButtonPersonne")
+    .selectAll('myOptions')
+    .data(["Personne 1", ["Personne 2"]])
+    .enter()
+    .append('option')
+    .text(function (d) { return d; }) // text showed in the menu
+    .attr("value", function (d) { return d; }) // corresponding value returned by the button
+
+function updatePersonne(selectedEssais){
+
+let essais = selectedEssais
+let selectedLink = selectedEssais[0].link
+// console.log(essais);
+function updateEssai(selectedLink) {
     //Read the data
     d3.csv(selectedLink).then(function (data) {
 
@@ -112,7 +197,7 @@ function updateChart(selectedLink) {
         // .range(d3.schemeSet2);
 
         var myColor = d3.scaleLinear().domain([1, 50])
-            .range(["#efeaf4", "green"])
+            .range(["white", "red"])
 
         // d3.rgb('red').brighter()
         // var myColor = d3.scaleLinear().domain([1,50])
@@ -140,6 +225,10 @@ function updateChart(selectedLink) {
                 .html("Zone cérébral: " + d.name)
                 .style("left", (event.x2) / 2 + "px")
                 .style("top", (event.y2) / 2 + 30 + "px")
+
+            d3.select(this).transition()
+                .duration('100')
+                .attr("r", d => d.z * 1.7);
         }
         const moveTooltip1 = function (event, d) {
             tooltip1
@@ -151,6 +240,10 @@ function updateChart(selectedLink) {
                 .transition()
                 .duration(200)
                 .style("opacity", 0)
+
+            d3.select(this).transition()
+                .duration('200')
+                .attr("r", d => d.z * 1.4);
         }
 
         frequenceArray = []
@@ -196,11 +289,23 @@ function updateChart(selectedLink) {
         drawMap(frequenceArray[0])
     })
 }
-// Listen to the slider?
+updateEssai(essais[0].link)
+// Listen to the select essai?
 d3.select("#selectButton").on("change", function (d) {
     selectedGroup = this.value
     selectedLink = essais.find(x => x.essai === selectedGroup).link
     console.log(selectedLink);
-    updateChart(selectedLink)
+    updateEssai(selectedLink)
 })
-updateChart(essais[0].link)
+}
+
+// Listen to the select personne?
+d3.select("#selectButtonPersonne").on("change", function (d) {
+    selectedPersonne = this.value
+    selectedEssai = personnes.find(x => x.personne === selectedPersonne).essais
+    // console.log(selectedEssai);
+    updatePersonne(selectedEssai)
+    // updateEssai()
+})
+
+updatePersonne(personnes[0].essais)
