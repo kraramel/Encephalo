@@ -238,7 +238,7 @@ function updatePersonne(selectedEssais) {
                     .style("opacity", 1)
                     .html("Zone cérébral: " + d.name)
                     .style("left", (event.x2) / 2 + "px")
-                    .style("top", (event.y2) / 2 + 30 + "px")
+                    .style("top", (event.y2) / 2 + 40 + "px")
 
                 d3v6.select(this).transition()
                     .duration('100')
@@ -247,7 +247,7 @@ function updatePersonne(selectedEssais) {
             const moveTooltip1 = function (event, d) {
                 tooltip1
                     .style("left", (event.x) / 2 + "px")
-                    .style("top", (event.y) / 2 + 850 + "px")
+                    .style("top", (event.y) / 2 + 3200 + "px")
             }
             const hideTooltip1 = function (event, d) {
                 tooltip1

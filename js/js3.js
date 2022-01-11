@@ -136,7 +136,7 @@ d3.select("#sliderF").on("input", function () {
         alll(0,0,fi);}
       
     }else{
-      if(p!== undefined){
+      if(p === undefined){
         alll(0,es,fi);
       }else{alll(p-1,es,fi);}
     }
