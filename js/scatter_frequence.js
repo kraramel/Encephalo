@@ -247,7 +247,7 @@ function updatePersonne(selectedEssais) {
             const moveTooltip1 = function (event, d) {
                 tooltip1
                     .style("left", (event.x) / 2 + "px")
-                    .style("top", (event.y) / 2 + 3200 + "px")
+                    .style("top", (event.y) / 2 + 2500 + "px")
             }
             const hideTooltip1 = function (event, d) {
                 tooltip1
