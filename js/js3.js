@@ -49,7 +49,7 @@
     };
     if(dt[i].HemiLobe === "LT"){
         LT = LT + Number(dt[i][fi]); 
-        LTind = RFind + 1; 
+        LTind = LTind + 1; 
     };
     if(dt[i].HemiLobe === "LP"){
         LP = LP + Number(dt[i][fi]);  
