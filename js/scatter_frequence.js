@@ -4,7 +4,7 @@ const margin_2 = { top: 50, right: 20, bottom: 30, left: 50 },
     height_2 = 620 - margin_2.top - margin_2.bottom;
 
 // append the svg object to the body of the page
-const svg_2 = d3.select("#my_dataviz_2")
+const svg_2 = d3v6.select("#my_dataviz_2")
     .append("svg")
     .attr("width", width_2 + margin_2.left + margin_2.right)
     .attr("height", height_2 + margin_2.top + margin_2.bottom)
@@ -146,7 +146,7 @@ const personnes = [
     }
 ]
 
-d3.select("#selectButton")
+d3v6.select("#selectButton")
     .selectAll('myOptions')
     .data(["Essai 1", "Essai 2", "Essai 3", "Essai 4", "Essai 5", "Essai 6", "Essai 7", "Essai 8", "Essai 9", "Essai 10", "Essai 11", "Essai 12", "Essai 13", "Essai 14", "Essai 15"])
     .enter()
@@ -154,153 +154,155 @@ d3.select("#selectButton")
     .text(function (d) { return d; }) // text showed in the menu
     .attr("value", function (d) { return d; }) // corresponding value returned by the button
 
-d3.select("#selectButtonPersonne")
+d3v6.select("#selectButtonPersonne")
     .selectAll('myOptions')
-    .data(["Personne 1", ["Personne 2"]])
+    .data(["Personne 1", "Personne 2"])
     .enter()
     .append('option')
     .text(function (d) { return d; }) // text showed in the menu
     .attr("value", function (d) { return d; }) // corresponding value returned by the button
 
-function updatePersonne(selectedEssais){
+function updatePersonne(selectedEssais) {
 
-let essais = selectedEssais
-let selectedLink = selectedEssais[0].link
-// console.log(essais);
-function updateEssai(selectedLink) {
-    //Read the data
-    d3.csv(selectedLink).then(function (data) {
+    let essais = selectedEssais
+    let selectedLink = selectedEssais[0].link
 
-        // Add X axis
-        const x2 = d3.scaleLinear()
-            .domain([-20, 20])
-            .range([0, width_2]);
-        svg_2.append("g")
-            .attr("transform", `translate(0, ${height_2})`)
-            .call(d3.axisBottom(x2));
+    // console.log(essais);
 
-        // Add Y axis
-        const y2 = d3.scaleLinear()
-            .domain([-20, 20])
-            .range([height_2, 0]);
-        svg_2.append("g")
-            .call(d3.axisLeft(y2));
+    function updateEssai(selectedLink) {
+        //Read the data
+        d3v6.csv(selectedLink).then(function (data) {
 
-        // Add a scale for bubble size
-        const z = d3.scaleLinear()
-            .domain([200000, 1310000000])
-            .range([4, 40]);
+            // Add X axis
+            const x2 = d3v6.scaleLinear()
+                .domain([-20, 20])
+                .range([0, width_2]);
+            svg_2.append("g")
+                .attr("transform", `translate(0, ${height_2})`)
+                .call(d3v6.axisBottom(x2));
 
-        // Add a scale for bubble color
-        // const myColor = d3.scaleOrdinal()
-        //     .domain([200000, 1310000000])
-        // .range(d3.schemeSet2);
+            // Add Y axis
+            const y2 = d3v6.scaleLinear()
+                .domain([-20, 20])
+                .range([height_2, 0]);
+            svg_2.append("g")
+                .call(d3v6.axisLeft(y2));
 
-        var myColor = d3.scaleLinear().domain([1, 50])
-            .range(["white", "red"])
+            // Add a scale for bubble size
+            const z = d3v6.scaleLinear()
+                .domain([200000, 1310000000])
+                .range([4, 40]);
 
-        // d3.rgb('red').brighter()
-        // var myColor = d3.scaleLinear().domain([1,50])
-        // .range([d3.rgb('yellow').brighter(), "blue"])
+            // Add a scale for bubble color
+            // const myColor = d3v6.scaleOrdinal()
+            //     .domain([200000, 1310000000])
+            // .range(d3v6.schemeSet2);
 
-        //         var myColor = d3.scaleSequential().domain([1,50])
-        //   .interpolator(d3.interpolatePuRd);
-        // -1- Create a tooltip div that is hidden by default:
-        const tooltip1 = d3.select("#my_dataviz_2")
-            .append("div")
-            .style("opacity", 0)
-            .attr("class", "tooltip1")
-            .style("background-color", "black")
-            .style("border-radius", "5px")
-            .style("padding", "10px")
-            .style("color", "white")
+            var myColor = d3v6.scaleLinear().domain([1, 50])
+                .range(["white", "red"])
 
-        // -2- Create 3 functions to show / update (when mouse move but stay on same circle) / hide the tooltip
-        const showTooltip1 = function (event, d) {
-            tooltip1
-                .transition()
-                .duration(200)
-            tooltip1
-                .style("opacity", 1)
-                .html("Zone cérébral: " + d.name)
-                .style("left", (event.x2) / 2 + "px")
-                .style("top", (event.y2) / 2 + 30 + "px")
+            // d3v6.rgb('red').brighter()
+            // var myColor = d3v6.scaleLinear().domain([1,50])
+            // .range([d3v6.rgb('yellow').brighter(), "blue"])
 
-            d3.select(this).transition()
-                .duration('100')
-                .attr("r", d => d.z * 1.7);
-        }
-        const moveTooltip1 = function (event, d) {
-            tooltip1
-                .style("left", (event.x) / 2 + "px")
-                .style("top", (event.y) / 2 + 850 + "px")
-        }
-        const hideTooltip1 = function (event, d) {
-            tooltip1
-                .transition()
-                .duration(200)
+            //         var myColor = d3v6.scaleSequential().domain([1,50])
+            //   .interpolator(d3v6.interpolatePuRd);
+            // -1- Create a tooltip div that is hidden by default:
+            const tooltip1 = d3v6.select("#my_dataviz_2")
+                .append("div")
                 .style("opacity", 0)
+                .attr("class", "tooltip1")
+                .style("background-color", "black")
+                .style("border-radius", "5px")
+                .style("padding", "10px")
+                .style("color", "white")
 
-            d3.select(this).transition()
-                .duration('200')
-                .attr("r", d => d.z * 1.4);
-        }
+            // -2- Create 3 functions to show / update (when mouse move but stay on same circle) / hide the tooltip
+            const showTooltip1 = function (event, d) {
+                tooltip1
+                    .transition()
+                    .duration(200)
+                tooltip1
+                    .style("opacity", 1)
+                    .html("Zone cérébral: " + d.name)
+                    .style("left", (event.x2) / 2 + "px")
+                    .style("top", (event.y2) / 2 + 30 + "px")
 
-        frequenceArray = []
+                d3v6.select(this).transition()
+                    .duration('100')
+                    .attr("r", d => d.z * 1.7);
+            }
+            const moveTooltip1 = function (event, d) {
+                tooltip1
+                    .style("left", (event.x) / 2 + "px")
+                    .style("top", (event.y) / 2 + 850 + "px")
+            }
+            const hideTooltip1 = function (event, d) {
+                tooltip1
+                    .transition()
+                    .duration(200)
+                    .style("opacity", 0)
 
-        for (let index = 0; index < 100; index++) {
-            frequenceArray.push("f" + index)
-        }
+                d3v6.select(this).transition()
+                    .duration('200')
+                    .attr("r", d => d.z * 1.4);
+            }
 
-        d3.select('#frequence').html(frequenceArray[0]);
-        d3.select('#slider').attr("max", frequenceArray.length - 1);
+            frequenceArray = []
 
-        d3.select("#slider").on("input", function () {
-            updateViz(this.value);
-            // console.log(this.value)
-        });
+            for (let index = 0; index < 100; index++) {
+                frequenceArray.push("f" + index)
+            }
 
-        function updateViz(value) {
-            d3.select('#frequence').html(frequenceArray[value]);
-            // console.log(frequenceArray[value])
-            drawMap(frequenceArray[value]);
-        }
+            d3v6.select('#frequence').html(frequenceArray[0]);
+            d3v6.select('#slider').attr("max", frequenceArray.length - 1);
 
-        function drawMap(frequence) {
-            // console.log(frequence)
+            d3v6.select("#slider").on("input", function () {
+                updateViz(this.value);
+                // console.log(this.value)
+            });
 
-            // Add dots
-            svg_2.append('g')
-                .selectAll("dot")
-                .data(data)
-                .join("circle")
-                .attr("class", "bubbles")
-                .attr("cx", d => x2(d.x))
-                .attr("cy", d => y2(d.y))
-                .attr("r", d => d.z * 1.4)
-                .style("fill", d => myColor(d[frequence]))
-                // -3- Trigger the functions
-                .on("mouseover", showTooltip1)
-                .on("mousemove", moveTooltip1)
-                .on("mouseleave", hideTooltip1)
+            function updateViz(value) {
+                d3v6.select('#frequence').html(frequenceArray[value]);
+                // console.log(frequenceArray[value])
+                drawMap(frequenceArray[value]);
+            }
 
-        }
+            function drawMap(frequence) {
+                // console.log(frequence)
 
-        drawMap(frequenceArray[0])
+                // Add dots
+                svg_2.append('g')
+                    .selectAll("dot")
+                    .data(data)
+                    .join("circle")
+                    .attr("class", "bubbles")
+                    .attr("cx", d => x2(d.x))
+                    .attr("cy", d => y2(d.y))
+                    .attr("r", d => d.z * 1.4)
+                    .style("fill", d => myColor(d[frequence]))
+                    // -3- Trigger the functions
+                    .on("mouseover", showTooltip1)
+                    .on("mousemove", moveTooltip1)
+                    .on("mouseleave", hideTooltip1)
+
+            }
+
+            drawMap(frequenceArray[0])
+        })
+    }
+    updateEssai(essais[0].link)
+    // Listen to the select essai?
+    d3v6.select("#selectButton").on("change", function (d) {
+        selectedGroup = this.value
+        selectedLink = essais.find(x => x.essai === selectedGroup).link
+        console.log(selectedLink);
+        updateEssai(selectedLink)
     })
-}
-updateEssai(essais[0].link)
-// Listen to the select essai?
-d3.select("#selectButton").on("change", function (d) {
-    selectedGroup = this.value
-    selectedLink = essais.find(x => x.essai === selectedGroup).link
-    console.log(selectedLink);
-    updateEssai(selectedLink)
-})
 }
 
 // Listen to the select personne?
-d3.select("#selectButtonPersonne").on("change", function (d) {
+d3v6.select("#selectButtonPersonne").on("change", function (d) {
     selectedPersonne = this.value
     selectedEssai = personnes.find(x => x.personne === selectedPersonne).essais
     // console.log(selectedEssai);

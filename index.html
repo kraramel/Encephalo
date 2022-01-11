@@ -6,7 +6,45 @@
     <link rel="icon" href="" />
 
     <meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1" />
+    <style>
+        .radar-chart .area {
+          fill-opacity: 0.7;
+        }
+        .radar-chart.focus .area {
+          fill-opacity: 0.3;
+        }
+        .radar-chart.focus .area.focused {
+          fill-opacity: 0.9;
+        }
+        .area.f0, .f0 .circle {
+          fill: #FFD700;
+          stroke: none;
+        }
+        .area.f0, .f0 .circle {
+          fill: #ADD8E6;
+          stroke: none;
+        }
+    
+        .radar-chart .axis line {
+            stroke: #bf1c1c;
+        }
+        .radar-chart .level {
+            stroke: #bf1c1c;
+        }
+        </style>
     <script src="https://d3js.org/d3.v6.min.js"></script>
+    <script>
+        var d3v6 = window.d3;
+        window.d3 = null;
+    </script>
+    <script src="https://d3js.org/d3.v3.min.js"></script>
+    <script src="https://rawgit.com/tpreusse/radar-chart-d3/master/src/radar-chart.js"></script>
+    <script>
+        RadarChart.defaultConfig.color = function() {};
+        RadarChart.defaultConfig.radius = 3;
+        RadarChart.defaultConfig.w = 400;
+        RadarChart.defaultConfig.h = 400;
+        </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-legend/2.13.0/d3-legend.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
@@ -51,6 +89,7 @@
             stroke: #B8B8B8;
         }
     </style>
+    
 </head>
 
 
@@ -118,34 +157,51 @@
         <div class="inner-div" style="width: 60%;">
             <i style="font-size: 20px; opacity: 0.75;">
                 &nbsp;&nbsp;&nbsp;&nbsp;
-                La magnéto-encéphalographie est une technique de mesure des champs magnétiques induits par l'activité électrique des neurones. Elle est composé de canaux (248) répartis
+                La magnéto-encéphalographie est une technique de mesure des champs magnétiques induits par l'activité
+                électrique des neurones. Elle est composé de canaux (248) répartis
                 sur l'ensemble de la surface crânienne.
-                Grâce à cette technique, les modifications locales du champ électromagnétique qui se propagent à la vitesse de la lumière sont détectables « en temps réel ». 
-                Cette méthode d'imagerie permet de fournir des cartes spatio-temporelles des événements électriques et métaboliques en rapport avec les activités mentales.
-                Dans ce contexte, les données sont issues d'une expérimentation visant à détecter le réseau cérébral de la musique autour de cette question
-                centrale : pourquoi certains morceaux nous donnent-ils davantage envie de danser ? 
-                Cette question, du point de vue théorique, est fondamentale, puisque la littérature soulève un réseau fonctionnel entre le cortex auditif et moteur. En ce sens, 
-                notre indicateur physiologique le plus précis pour évaluer de très courtes périodes temporelles (de l'ordre de la milliseconde) est le mouvement. Ainsi,
-                danser en rythme revient à effectuer des prédictions correctes, et dans une approche évolutive, un organisme capable de prédictions temporelles correctes augmente ses 
+                Grâce à cette technique, les modifications locales du champ électromagnétique qui se propagent à la
+                vitesse de la lumière sont détectables « en temps réel ».
+                Cette méthode d'imagerie permet de fournir des cartes spatio-temporelles des événements électriques et
+                métaboliques en rapport avec les activités mentales.
+                Dans ce contexte, les données sont issues d'une expérimentation visant à détecter le réseau cérébral de
+                la musique autour de cette question
+                centrale : pourquoi certains morceaux nous donnent-ils davantage envie de danser ?
+                Cette question, du point de vue théorique, est fondamentale, puisque la littérature soulève un réseau
+                fonctionnel entre le cortex auditif et moteur. En ce sens,
+                notre indicateur physiologique le plus précis pour évaluer de très courtes périodes temporelles (de
+                l'ordre de la milliseconde) est le mouvement. Ainsi,
+                danser en rythme revient à effectuer des prédictions correctes, et dans une approche évolutive, un
+                organisme capable de prédictions temporelles correctes augmente ses
                 chances de survie.
-                Pour répondre à cette question, des participants ont été invités à écouter de courts extraits de musique selon différentes conditions expérimentales, principalement
-                autour d'extraits plus ou moins rythmés et dont le rythme était plus ou moins complexes. Ils ont été invités à évaluer, de façon subjective, la syncope (i.e. 
+                Pour répondre à cette question, des participants ont été invités à écouter de courts extraits de musique
+                selon différentes conditions expérimentales, principalement
+                autour d'extraits plus ou moins rythmés et dont le rythme était plus ou moins complexes. Ils ont été
+                invités à évaluer, de façon subjective, la syncope (i.e.
                 la complexité du rythme) ainsi que le groove (i.e. l'envie de danser).
             </i>
         </div>
 
         <div class="inner-div">
-            Les données sélectionnées pour ce projet sont composées, pour chaque participant, de l'activité cérébrale sur 100 bandes de fréquences, et pour chaque bande de fréquence,
-            les canaux associés, et ce pour 15 essais. Un pre-processing a déjà été réalisé sur les données : il s'agissait de moyenner l'activité cérébrale sur les 16 secondes de l'extrait
+            Les données sélectionnées pour ce projet sont composées, pour chaque participant, de l'activité cérébrale
+            sur 100 bandes de fréquences, et pour chaque bande de fréquence,
+            les canaux associés, et ce pour 15 essais. Un pre-processing a déjà été réalisé sur les données : il
+            s'agissait de moyenner l'activité cérébrale sur les 16 secondes de l'extrait
             en identifiant les canaux pour lesquels l'activité cérébrale comportait des valeurs aberrantes (bruit).
-            L'objectif de ce projet est de fournir des visualisations de l'activité cérébrale. L'enjeu principal de ces visualisations est de pouvoir identifier des activités plus importantes au niveau
-            du cortex auditif et moteur, situés dans le lobe parétal (moteur) et temporal (audition), en fonction des conditions expérimentales. 
+            L'objectif de ce projet est de fournir des visualisations de l'activité cérébrale. L'enjeu principal de ces
+            visualisations est de pouvoir identifier des activités plus importantes au niveau
+            du cortex auditif et moteur, situés dans le lobe parétal (moteur) et temporal (audition), en fonction des
+            conditions expérimentales.
         </div>
 
         <div id="visuSmartphone" class="inner-div center-div">
             <h2>Partie 1</h2>
             <div id="legendPhoneOver" style="display: inline-block"></div>
             <div id="chartPhoneOver" style="display: inline-block"></div>
+            <div id="colorButton">
+                <input type="radio" name="colorButton" value="Lobe" checked> Lobe<br>
+                <input type="radio" name="colorButton" value="Hemi+Lob"> Hemi+Lob<br>
+            </div>
             <div id="my_dataviz_1"></div>
             <hr style="width: 70%;">
             <h5>Partie 2 </h5>
@@ -153,7 +209,7 @@
             <div id="chartPhoneSub" style="display: inline-block"></div>
 
             <div id="my_dataviz_2"></div>
-            
+
             <select id="selectButton"></select>
             <select id="selectButtonPersonne"></select>
 
@@ -268,8 +324,32 @@
                 * Danish candy canes cake shortbread jelly beans jelly-o croissant tart carrot cake. Jujubes bonbon
                 pastry cookie sesame
             </i>
-        </div>
 
+             
+        </div>
+        
+        <div>
+            <select name="Participant" id="participant">
+                <option value="1">Participant1</option>
+                <option value="2">Participant2</option>
+              </select>
+        </div>
+      
+        
+        <div id="divSliderE">
+            <span id="E">Essai: </span>
+            <input id="sliderE" type="range" value="0" min="0" max="14" step="1" />
+           
+        </div>   
+        <div id="divSliderF">
+            <span id="F">Frequence:</span>
+            <input id="sliderF" type="range" value="0" min="0" max="99" step="1" />
+         
+        </div>
+        <div id="my_dataviz_4">
+            
+        </div>
+          
         <div class="inner-div">
             Danish candy canes cake shortbread jelly beans jelly-o croissant tart carrot cake. Jujubes bonbon pastry
             cookie sesame
@@ -324,5 +404,9 @@
 <script src="./js/bubble_scatter.js"></script>
 <script src="./js/scatter_frequence.js"></script>
 <script src="./js/ridgeline.js"></script>
+<script src="./js/js3.js"></script>
+
+<!-- <script src="https://d3js.org/d3.v4.js"></script> -->
+
 
 </html>
