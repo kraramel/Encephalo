@@ -57,7 +57,7 @@ d3v6.csv("./new_data_test_scatter.csv").then(function (data) {
 
     const color2 = d3v6.scaleOrdinal()
         .domain(["CR", "CL", "FR", "FL", "PR", "PL", "TR", "TL",])
-        .range(["#fafa6e", "#5bc489", "#008d8c", "#2a4858", "red", "black", "grey", "orange"])
+        .range(["#fafa6e", "#5bc489", "#008d8c", "#2a4858", "red", "black",])
     // -1- Create a tooltip div that is hidden by default:
     const tooltip = d3v6.select("#my_dataviz_1")
         .append("div")
@@ -135,109 +135,49 @@ d3v6.csv("./new_data_test_scatter.csv").then(function (data) {
             .style("opacity", 0)
     }
 
-    let islobe = true
-    function changeColor() {
-        // var radioValue = $("input[name='colorButton']:active");
-        var radioValue = document.querySelector('input[name="colorButton"]:checked').value
-        console.log(radioValue)
-        if (radioValue === "Lobe") {
-            islobe = true
-            updateChart(islobe)
-        } else {
-            islobe = false
-            updateChart(islobe)
-        }
 
-    }
-    d3v6.select("#colorButton").on("change", changeColor)
     // Add dots
-    function updateChart(isLobe) {
-        if (isLobe) {
-            svg.append('g')
-                .selectAll("dot")
-                .data(data)
-                .enter()
-                .append("circle")
-                .attr("class", function (d) { return "dot " + d.Lobe })
-                .attr("cx", function (d) { return x(d.y); })
-                .attr("cy", function (d) { return y(d.x); })
-                .attr("r", 5)
-                .style("fill", function (d) { return color(d.Lobe) })
-                .on("mouseover", highlight)
-                .on("mouseleave", doNotHighlight)
-                // -3- Trigger the functions
-                // .on("mouseover", showTooltip)
-                .on("mousemove", moveTooltip)
-            // .on("mouseleave", hideTooltip)
 
-            // create a list of keys
-            var keys = ["Pariétal (Center)", "Frontal (Anterior) ", "Occipital (Posterior)", "Temporal"]
+    svg.append('g')
+        .selectAll("dot")
+        .data(data)
+        .enter()
+        .append("circle")
+        .attr("class", function (d) { return "dot " + d.Lobe })
+        .attr("cx", function (d) { return x(d.y); })
+        .attr("cy", function (d) { return y(d.x); })
+        .attr("r", 5)
+        .style("fill", function (d) { return color(d.Lobe) })
+        .on("mouseover", highlight)
+        .on("mouseleave", doNotHighlight)
+        // -3- Trigger the functions
+        // .on("mouseover", showTooltip)
+        .on("mousemove", moveTooltip)
+    // .on("mouseleave", hideTooltip)
 
-            svg.selectAll("mydots")
-                .data(keys)
-                .enter()
-                .append("circle")
-                .attr("cx", 700)
-                .attr("cy", function (d, i) { return 50 + i * 25 }) // 100 is where the first dot appears. 25 is the distance between dots
-                .attr("r", 8)
-                .style("fill", function (d) { return color(d) })
+    // create a list of keys
+    var keys = ["Pariétal (Center)", "Frontal (Anterior) ", "Occipital (Posterior)", "Temporal"]
 
-            // Add one dot in the legend for each name.
-            svg.selectAll("mylabels")
-                .data(keys)
-                .enter()
-                .append("text")
-                .attr("x", 720)
-                .attr("y", function (d, i) { return 55.5 + i * 25 }) // 100 is where the first dot appears. 25 is the distance between dots
-                .text(function (d) { return d })
-                .attr("text-anchor", "left")
-                .style("alignment-baseline", "middle")
-        } else {
+    svg.selectAll("mydots")
+        .data(keys)
+        .enter()
+        .append("circle")
+        .attr("cx", 700)
+        .attr("cy", function (d, i) { return 50 + i * 25 }) // 100 is where the first dot appears. 25 is the distance between dots
+        .attr("r", 8)
+        .style("fill", function (d) { return color(d) })
 
-            svg.append('g')
-                .selectAll("dot")
-                .data(data)
-                .enter()
-                .append("circle")
-                .attr("class", function (d) { return "dot " + d.HemiLobe })
-                .attr("cx", function (d) { return x(d.y); })
-                .attr("cy", function (d) { return y(d.x); })
-                .attr("r", 5)
-                .style("fill", function (d) { return color2(d.HemiLobe) })
-                .on("mouseover", highlight)
-                .on("mouseleave", doNotHighlight)
-                // -3- Trigger the functions
-                // .on("mouseover", showTooltip)
-                .on("mousemove", moveTooltip)
-            // .on("mouseleave", hideTooltip)
+    // Add one dot in the legend for each name.
+    svg.selectAll("mylabels")
+        .data(keys)
+        .enter()
+        .append("text")
+        .attr("x", 720)
+        .attr("y", function (d, i) { return 55.5 + i * 25 }) // 100 is where the first dot appears. 25 is the distance between dots
+        .text(function (d) { return d })
+        .attr("text-anchor", "left")
+        .style("alignment-baseline", "middle")
 
-            // create a list of keys
-            var keys = ["Pariétal (Center) R", "Pariétal (Center) L"
-                , "Frontal (Anterior) R", "Frontal (Anterior) L"
-                , "Occipital (Posterior) R", "Occipital (Posterior) L"
-                , "Temporal R", "Temporal L"]
 
-            svg.selectAll("mydots")
-                .data(keys)
-                .enter()
-                .append("circle")
-                .attr("cx", 700)
-                .attr("cy", function (d, i) { return 50 + i * 25 }) // 100 is where the first dot appears. 25 is the distance between dots
-                .attr("r", 8)
-                .style("fill", function (d) { return color2(d) })
-
-            // Add one dot in the legend for each name.
-            svg.selectAll("mylabels")
-                .data(keys)
-                .enter()
-                .append("text")
-                .attr("x", 720)
-                .attr("y", function (d, i) { return 55.5 + i * 25 }) // 100 is where the first dot appears. 25 is the distance between dots
-                .text(function (d) { return d })
-                .attr("text-anchor", "left")
-                .style("alignment-baseline", "middle")
-        }
-    }
-    updateChart(true)
 })
 
