@@ -1,10 +1,17 @@
 // set the dimensions and margins of the graph
 const margin_2 = { top: 50, right: 20, bottom: 30, left: 50 },
-    width_2 = 800 - margin_2.left - margin_2.right,
-    height_2 = 620 - margin_2.top - margin_2.bottom;
+    width_2 = 650 - margin_2.left - margin_2.right,
+    height_2 = 460 - margin_2.top - margin_2.bottom;
 
 // append the svg object to the body of the page
 const svg_2 = d3v6.select("#my_dataviz_2")
+    .append("svg")
+    .attr("width", width_2 + margin_2.left + margin_2.right)
+    .attr("height", height_2 + margin_2.top + margin_2.bottom)
+    .append("g")
+    .attr("transform", `translate(${margin_2.left},${margin_2.top})`);
+
+const svg_2_2 = d3v6.select("#my_dataviz_2_2")
     .append("svg")
     .attr("width", width_2 + margin_2.left + margin_2.right)
     .attr("height", height_2 + margin_2.top + margin_2.bottom)
@@ -162,22 +169,29 @@ d3v6.select("#selectButtonPersonne")
     .text(function (d) { return d; }) // text showed in the menu
     .attr("value", function (d) { return d; }) // corresponding value returned by the button
 
-function updatePersonne(selectedEssais) {
+// function updatePersonne(selectedEssais) {
 
-    let essais = selectedEssais
-    let selectedLink = selectedEssais[0].link
+//     let essais = selectedEssais
+//     let selectedLink = selectedEssais[0].link
 
-    // console.log(essais);
+// console.log(essais);
 
-    function updateEssai(selectedLink) {
-        //Read the data
-        d3v6.csv(selectedLink).then(function (data) {
+function updateEssai(selectedLink1, selectedLink2) {
+    //Read the data
+    d3v6.csv(selectedLink1).then(function (data1) {
+        d3v6.csv(selectedLink2).then(function (data2) {
 
             // Add X axis
             const x2 = d3v6.scaleLinear()
                 .domain([-20, 20])
                 .range([0, width_2]);
+
+            // Personne 1 
             svg_2.append("g")
+                .attr("transform", `translate(0, ${height_2})`)
+                .call(d3v6.axisBottom(x2));
+            // Personne 2
+            svg_2_2.append("g")
                 .attr("transform", `translate(0, ${height_2})`)
                 .call(d3v6.axisBottom(x2));
 
@@ -185,21 +199,37 @@ function updatePersonne(selectedEssais) {
             const y2 = d3v6.scaleLinear()
                 .domain([-20, 20])
                 .range([height_2, 0]);
+            //Personne 1 
             svg_2.append("g")
                 .call(d3v6.axisLeft(y2));
-
             svg_2.append('text')
                 .attr('x', 10)
                 .attr('y', 10)
                 .attr('class', 'label')
                 .text('Y');
-
             svg_2.append('text')
                 .attr('x', width_2)
                 .attr('y', height_2 - 10)
                 .attr('text-anchor', 'end')
                 .attr('class', 'label')
                 .text('X');
+
+            //Personne 2 
+            svg_2_2.append("g")
+                .call(d3v6.axisLeft(y2));
+            svg_2_2.append('text')
+                .attr('x', 10)
+                .attr('y', 10)
+                .attr('class', 'label')
+                .text('Y');
+            svg_2_2.append('text')
+                .attr('x', width_2)
+                .attr('y', height_2 - 10)
+                .attr('text-anchor', 'end')
+                .attr('class', 'label')
+                .text('X');
+            // ---------------------------------
+
             // Add a scale for bubble size
             const z = d3v6.scaleLinear()
                 .domain([200000, 1310000000])
@@ -286,7 +316,21 @@ function updatePersonne(selectedEssais) {
                 // Add dots
                 svg_2.append('g')
                     .selectAll("dot")
-                    .data(data)
+                    .data(data1)
+                    .join("circle")
+                    .attr("class", "bubbles")
+                    .attr("cx", d => x2(d.x))
+                    .attr("cy", d => y2(d.y))
+                    .attr("r", d => d.z * 1.4)
+                    .style("fill", d => myColor(d[frequence]))
+                    // -3- Trigger the functions
+                    .on("mouseover", showTooltip1)
+                    .on("mousemove", moveTooltip1)
+                    .on("mouseleave", hideTooltip1)
+
+                svg_2_2.append('g')
+                    .selectAll("dot")
+                    .data(data2)
                     .join("circle")
                     .attr("class", "bubbles")
                     .attr("cx", d => x2(d.x))
@@ -302,24 +346,28 @@ function updatePersonne(selectedEssais) {
 
             drawMap(frequenceArray[0])
         })
-    }
-    updateEssai(essais[0].link)
-    // Listen to the select essai?
-    d3v6.select("#selectButton").on("change", function (d) {
-        selectedGroup = this.value
-        selectedLink = essais.find(x => x.essai === selectedGroup).link
-        console.log(selectedLink);
-        updateEssai(selectedLink)
     })
 }
 
-// Listen to the select personne?
-d3v6.select("#selectButtonPersonne").on("change", function (d) {
-    selectedPersonne = this.value
-    selectedEssai = personnes.find(x => x.personne === selectedPersonne).essais
-    // console.log(selectedEssai);
-    updatePersonne(selectedEssai)
-    // updateEssai()
-})
+// updateEssai(essais[0].link)
+// Listen to the select essai?
+d3v6.select("#selectButton").on("change", function (d) {
+    selectedGroup = this.value
+    selectedLink1 = personnes[0].essais.find(x => x.essai === selectedGroup).link
+    selectedLink2 = personnes[1].essais.find(x => x.essai === selectedGroup).link
 
-updatePersonne(personnes[0].essais)
+    console.log(selectedLink1, selectedLink2);
+    updateEssai(selectedLink1, selectedLink2)
+})
+// }
+
+// Listen to the select personne?
+// d3v6.select("#selectButtonPersonne").on("change", function (d) {
+//     selectedPersonne = this.value
+//     selectedEssai = personnes.find(x => x.personne === selectedPersonne).essais
+//     // console.log(selectedEssai);
+//     updatePersonne(selectedEssai)
+//     // updateEssai()
+// })
+
+updateEssai(personnes[0].essais[0].link, personnes[1].essais[0].link)
