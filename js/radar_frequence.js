@@ -163,9 +163,9 @@ d3.select("#sliderF").on("input", function () {
     //console.log(essai);
     //console.log(par);
 
-    //var dataSource = './data_modified/P'+par+'E'+essai+'_modified.csv';
-    var dataSource = './data_modified/P0E'+essai+'_modified.csv';
-    var dataSource1 = './data_modified/P1E'+essai+'_modified.csv';
+    //var dataSource = './data/P'+par+'E'+essai+'_modified.csv';
+    var dataSource = './data/P0E'+essai+'_modified.csv';
+    var dataSource1 = './data/P1E'+essai+'_modified.csv';
     //console.log(dataSource);
     d3.csv(dataSource, function(err, data) {
       d3.csv(dataSource1, function(err, data1) {

@@ -21,125 +21,125 @@ const svg_2_2 = d3v6.select("#my_dataviz_2_2")
 const essais1 = [
     {
         essai: "Essai 1",
-        link: "./data_modified/P0E0_modified.csv"
+        link: "./data/P0E0_modified.csv"
     },
     {
         essai: "Essai 2",
-        link: "./data_modified/P0E1_modified.csv"
+        link: "./data/P0E1_modified.csv"
     },
     {
         essai: "Essai 3",
-        link: "./data_modified/P0E2_modified.csv"
+        link: "./data/P0E2_modified.csv"
     },
     {
         essai: "Essai 4",
-        link: "./data_modified/P0E3_modified.csv"
+        link: "./data/P0E3_modified.csv"
     },
     {
         essai: "Essai 5",
-        link: "./data_modified/P0E4_modified.csv"
+        link: "./data/P0E4_modified.csv"
     },
     {
         essai: "Essai 6",
-        link: "./data_modified/P0E5_modified.csv"
+        link: "./data/P0E5_modified.csv"
     },
     {
         essai: "Essai 7",
-        link: "./data_modified/P0E6_modified.csv"
+        link: "./data/P0E6_modified.csv"
     },
     {
         essai: "Essai 8",
-        link: "./data_modified/P0E7_modified.csv"
+        link: "./data/P0E7_modified.csv"
     },
     {
         essai: "Essai 9",
-        link: "./data_modified/P0E8_modified.csv"
+        link: "./data/P0E8_modified.csv"
     },
     {
         essai: "Essai 10",
-        link: "./data_modified/P0E9_modified.csv"
+        link: "./data/P0E9_modified.csv"
     },
     {
         essai: "Essai 11",
-        link: "./data_modified/P0E10_modified.csv"
+        link: "./data/P0E10_modified.csv"
     },
     {
         essai: "Essai 12",
-        link: "./data_modified/P0E11_modified.csv"
+        link: "./data/P0E11_modified.csv"
     },
     {
         essai: "Essai 13",
-        link: "./data_modified/P0E12_modified.csv"
+        link: "./data/P0E12_modified.csv"
     },
     {
         essai: "Essai 14",
-        link: "./data_modified/P0E13_modified.csv"
+        link: "./data/P0E13_modified.csv"
     },
     {
         essai: "Essai 15",
-        link: "./data_modified/P0E14_modified.csv"
+        link: "./data/P0E14_modified.csv"
     }
 ]
 const essais2 = [
     {
         essai: "Essai 1",
-        link: "./data_modified/P1E0_modified.csv"
+        link: "./data/P1E0_modified.csv"
     },
     {
         essai: "Essai 2",
-        link: "./data_modified/P1E1_modified.csv"
+        link: "./data/P1E1_modified.csv"
     },
     {
         essai: "Essai 3",
-        link: "./data_modified/P1E2_modified.csv"
+        link: "./data/P1E2_modified.csv"
     },
     {
         essai: "Essai 4",
-        link: "./data_modified/P1E3_modified.csv"
+        link: "./data/P1E3_modified.csv"
     },
     {
         essai: "Essai 5",
-        link: "./data_modified/P1E4_modified.csv"
+        link: "./data/P1E4_modified.csv"
     },
     {
         essai: "Essai 6",
-        link: "./data_modified/P1E5_modified.csv"
+        link: "./data/P1E5_modified.csv"
     },
     {
         essai: "Essai 7",
-        link: "./data_modified/P1E6_modified.csv"
+        link: "./data/P1E6_modified.csv"
     },
     {
         essai: "Essai 8",
-        link: "./data_modified/P1E7_modified.csv"
+        link: "./data/P1E7_modified.csv"
     },
     {
         essai: "Essai 9",
-        link: "./data_modified/P1E8_modified.csv"
+        link: "./data/P1E8_modified.csv"
     },
     {
         essai: "Essai 10",
-        link: "./data_modified/P1E9_modified.csv"
+        link: "./data/P1E9_modified.csv"
     },
     {
         essai: "Essai 11",
-        link: "./data_modified/P1E10_modified.csv"
+        link: "./data/P1E10_modified.csv"
     },
     {
         essai: "Essai 12",
-        link: "./data_modified/P1E11_modified.csv"
+        link: "./data/P1E11_modified.csv"
     },
     {
         essai: "Essai 13",
-        link: "./data_modified/P1E12_modified.csv"
+        link: "./data/P1E12_modified.csv"
     },
     {
         essai: "Essai 14",
-        link: "./data_modified/P1E13_modified.csv"
+        link: "./data/P1E13_modified.csv"
     },
     {
         essai: "Essai 15",
-        link: "./data_modified/P1E14_modified.csv"
+        link: "./data/P1E14_modified.csv"
     }
 ]
 const personnes = [

@@ -150,7 +150,7 @@ d3.select("#sliderF").on("input", function () {
     console.log(essai);
     console.log(f);
 
-    var dataSource = './data_modified/P'+par+'E'+essai+'_modified.csv';
+    var dataSource = './data/P'+par+'E'+essai+'_modified.csv';
     console.log(dataSource);
     d3.csv(dataSource, function(err, data) {
         var ind = undefined;

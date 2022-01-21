@@ -13,7 +13,7 @@ const svg = d3v6.select("#my_dataviz_1")
         `translate(${margin1.left}, ${margin1.top})`);
 
 //Read the data
-d3v6.csv("./new_data_test_scatter.csv").then(function (data) {
+d3v6.csv("./data/P0E0_modified.csv").then(function (data) {
 
     // Add X axis
     const x = d3v6.scaleLinear()
